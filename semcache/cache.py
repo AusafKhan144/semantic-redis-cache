@@ -10,7 +10,6 @@ from .models import CacheResult
 from .exceptions import RedisConnectionError, EmbeddingError
 
 
-
 class SemanticRedisCache:
     def __init__(
         self,
