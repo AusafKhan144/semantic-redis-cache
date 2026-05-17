@@ -29,11 +29,21 @@ jobs:
         run: pytest tests/ -v
 
   publish:
-    needs: test        # ← only runs if tests pass
+    needs: test
     runs-on: ubuntu-latest
+    
+    # only publish if tag is on main branch
+    if: github.ref_type == 'tag'
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # fetch full history
+
+      - name: Verify tag is on main
+        run: |
+          git fetch origin main
+          git branch -r --contains ${{ github.sha }} | grep "origin/main" || exit 1
 
       - uses: actions/setup-python@v4
         with:
@@ -49,4 +59,4 @@ jobs:
         run: twine upload dist/*
         env:
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }} 
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
