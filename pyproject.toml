@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "semantic-redis-cache"
-version = "0.1.0"
+version = "0.1.5"
 description = "Semantic caching wrapper for Redis — stop paying for duplicate LLM calls"
 readme = "README.md"
 license = {file = "LICENSE"}
