@@ -1,0 +1,67 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "semantic-redis-cache"
+version = "0.1.0"
+description = "Semantic caching wrapper for Redis — stop paying for duplicate LLM calls"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Ausaf", email = "kausaf141@gmail.com"}
+]
+keywords = [
+    "redis",
+    "cache",
+    "semantic",
+    "llm",
+    "embeddings",
+    "vector",
+    "nlp",
+    "ai"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
+requires-python = ">=3.8"
+dependencies = [
+    "redis>=4.0.0",
+    "sentence-transformers>=2.0.0",
+    "numpy>=1.21.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ausaf/semcache"
+Repository = "https://github.com/ausaf/semcache"
+Issues = "https://github.com/ausaf/semcache/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["semcache"]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "env/",
+    "venv/",
+    "semcache-env/",
+    ".env",
+    "__pycache__/",
+    "*.pyc",
+    ".pytest_cache/",
+    "dist/",
+    "build/",
+]
