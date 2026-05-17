@@ -31,14 +31,11 @@ jobs:
   publish:
     needs: test
     runs-on: ubuntu-latest
-    
-    # only publish if tag is on main branch
-    if: github.ref_type == 'tag'
 
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # fetch full history
+          fetch-depth: 0
 
       - name: Verify tag is on main
         run: |
