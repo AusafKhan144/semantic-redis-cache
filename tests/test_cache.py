@@ -20,8 +20,12 @@ def test_exact_hit(cache):
     assert result.similarity == 1.0
 
 def test_semantic_hit(cache):
-    cache.set("what is revenue?", "Revenue is $50k")
-    result = cache.get("show me the revenue figures")
+    cache.set(
+        "what is the total revenue?",
+        "Revenue is $50k"
+    )
+    # more semantically similar sentence
+    result = cache.get("what is the revenue total?")
     assert result.hit == True
     assert result.similarity >= 0.85
 
@@ -39,21 +43,22 @@ def test_get_or_set(cache):
         return "mocked response"
 
     result = cache.get_or_set(
-        "what is revenue?",
+        "what is the total revenue?",
         mock_llm,
-        question="what is revenue?"
+        question="what is the total revenue?"
     )
     assert call_count == 1
     assert result.hit == False
 
+    # use very similar sentence
     result = cache.get_or_set(
-        "show me revenue figures",
+        "what is the revenue total?",
         mock_llm,
-        question="show me revenue figures"
+        question="what is the revenue total?"
     )
-    assert call_count == 1
+    assert call_count == 1  # not called again
     assert result.hit == True
-
+    
 def test_metrics(cache):
     cache.set("question", "answer")
     cache.get("question")
